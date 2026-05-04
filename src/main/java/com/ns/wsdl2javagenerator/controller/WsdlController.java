@@ -1,9 +1,11 @@
 package com.ns.wsdl2javagenerator.controller;
 
 import com.ns.wsdl2javagenerator.model.WsdlRequest;
-import com.ns.wsdl2javagenerator.model.WsdlResponse;
 import com.ns.wsdl2javagenerator.service.WsdlService;
+import com.ns.wsdl2javagenerator.util.Constants;
+import com.ns.wsdl2javagenerator.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,8 +20,9 @@ public class WsdlController {
         System.out.println("HI");
     }
 
-        @PostMapping("/generate")
-    public WsdlResponse generate(@RequestBody WsdlRequest request) {
-        return wsdlService.processWsdl(request);
+    @PostMapping("/generate")
+    public ResponseEntity<byte[]> generate(@RequestBody WsdlRequest request) {
+        byte[] zip = wsdlService.processWsdl(request);
+        return ResponseUtil.zipDownload(zip, Constants.ZIP_NAME);
     }
 }
