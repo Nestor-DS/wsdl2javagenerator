@@ -72,5 +72,3 @@ The following values are defined in `Constants.java` and can be changed at compi
 - WSDL size is validated both from `Content-Length` header and from actual bytes copied, to prevent partial bypasses.
 - Axis2 runs as a subprocess; it does not share the application heap.
 - Temporary files are always deleted in a `finally` block regardless of outcome.
-
-> **Warning:** The current SSRF filter does not cover `172.16.0.0/12` or `192.168.0.0/16` private ranges. If this service is deployed in an environment where those ranges are reachable, you must add those checks to `WsdlServiceImpl.validateRequest()`.
